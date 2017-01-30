@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <form method="post" action="../cadastro/process_form.php">
-    <p>Title: </p>
-    <input type="text" name="title">
-    <p>Author: </p>
-    <input type="text" name="author">
-    <br>
-    <p>Owner: </p>
-    <input type="text" name="owner">
-    <br>
-    <p>Description: </p>
-    <input type="text" name="description">
-    <br><br>
-    <button type="submit">Enviar</button>
-  </form>
-</body>
+
+  <head>
+    <title>Cadastro de livros</title>
+    <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
+  </head>
+
+  <body>
+    <div id = "insert-form">
+      <h2>Cadastrar livro</h2>
+      <form method="post" action="../crud/insert.php">
+        <p>Título: </p>
+        <input type="text" name="title">
+        <p>Autor: </p>
+        <input type="text" name="author">
+        <br>
+        <p>Dono: </p>
+        <input type="text" name="owner">
+        <br>
+        <p>Descrição: </p>
+        <input type="text" name="description">
+        <br><br>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    </body>
+
 </html>
