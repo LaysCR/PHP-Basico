@@ -4,24 +4,28 @@
   <head>
     <title>Cadastro de livros</title>
     <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/insert.js"></script>
   </head>
 
   <body>
+
     <div id = "insert-form">
       <h2>Cadastrar livro</h2>
       <form method="post" action="../crud/insert.php">
         <p>Título: </p>
-        <input type="text" name="title">
+        <input id="title" type="text" name="title" placeholder="Título do livro">
         <p>Autor: </p>
-        <input type="text" name="author">
+        <input id="author" type="text" name="author" placeholder="Autor do livro">
         <br>
         <p>Dono: </p>
-        <input type="text" name="owner">
+        <input id="owner" type="text" name="owner" placeholder="Nome do dono">
         <br>
         <p>Descrição: </p>
-        <input type="text" name="description">
+        <input id="description" type="text" name="description" placeholder="Descrição">
         <br><br>
-        <button type="submit">Cadastrar</button>
+        <input id="button" value="Cadastrar" type='button' onclick="formSubmitter('sampleform', 'message')">
+        <div id='message'>Cadastrado com sucesso!</div>
       </form>
     </div>
 

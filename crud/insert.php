@@ -18,3 +18,8 @@ $sql = $pdo->prepare("INSERT INTO livro (title, author, owner, description)
     $sql->bindParam(':owner', $owner);
     $sql->bindParam(':description', $description);
 $sql->execute();
+
+  header('Location: ../public/index.html');
+  exit();
+
+    echo 'Ok';

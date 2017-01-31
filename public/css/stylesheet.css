@@ -26,19 +26,23 @@ h2 {
 #insert-form input:focus {
     border: 2px solid #696969;
 }
-#insert-form button {
+#insert-form #button {
     float: right;
     margin-top: 20px;
     margin-right: 30px;
     color: #696969;
 }
-
+#insert-form #message {
+    font-size: 12px;
+    
+}
 /*Select table*/
 table {
     text-align: center;
     margin: auto;
     padding: 5px;
-    margin-top: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
     border: 1px solid lightgray;
     border-radius: 10px;
     font-family: sans-serif;
