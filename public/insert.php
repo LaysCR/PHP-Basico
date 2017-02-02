@@ -1,11 +1,13 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
   <head>
     <title>Cadastro de livros</title>
     <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../public/insert.js"></script>
+    <script type="text/javascript" src="../crud/crud.js"></script>
   </head>
 
   <body>
@@ -24,10 +26,18 @@
         <p>Descrição: </p>
         <input id="description" type="text" name="description" placeholder="Descrição">
         <br><br>
-        <input id="button" value="Cadastrar" type='button' onclick="formSubmitter('sampleform', 'message')">
-        <div id='message'>Cadastrado com sucesso!</div>
+        <!-- <div id='message'>Cadastrado com sucesso! <span class="glyphicon glyphicon-ok"></span></div> -->
+        <?php
+        if (isset($_SESSION['message'])) {
+          echo $_SESSION['message'];
+          unset($_SESSION['message']);
+        }
+        ?>
+        <input id="button" value="Cadastrar" type="submit">
       </form>
     </div>
+
+    <input id="toSelect" value="Livros Cadastrados" type="submit">
 
     </body>
 

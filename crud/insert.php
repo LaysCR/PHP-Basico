@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once('../pdo/Connection.php');
 
 $connection = new Connection("127.0.0.1", "Emprestimos", "root", "abcdefgh");
@@ -19,7 +20,10 @@ $sql = $pdo->prepare("INSERT INTO livro (title, author, owner, description)
     $sql->bindParam(':description', $description);
 $sql->execute();
 
-  header('Location: ../public/index.html');
+  $_SESSION["message"] = '<div id="message">Cadastrado com sucesso! <span class="glyphicon glyphicon-ok"></span></div>';
+
+  // sleep(1.5);
+  header('Location: ../public/insert.php');
   exit();
 
-    echo 'Ok';
+?>

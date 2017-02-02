@@ -1,12 +1,17 @@
+body {
+    background-image: url(/public/css/background.jpeg);
+}
 /*Insert form*/
 h2 {
     text-align: center;
 }
 #insert-form {
     width: 30%;
-    margin: auto;padding: 5px;
+    margin: auto;
+    padding: 5px;
     margin-top: 140px;
     color: #696969;
+    background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;
     font-family: sans-serif;
@@ -32,9 +37,28 @@ h2 {
     margin-right: 30px;
     color: #696969;
 }
-#insert-form #message {
+#insert-form #button:hover, #toSelect:hover, #toInsert:hover {
+    background-color: #696969;
+    color: white;
+}
+#message {
+    display: inline-block;
     font-size: 12px;
-    
+    margin-left: 25px;
+    color: green;
+}
+/*Next Page*/
+#toSelect, #toInsert {
+    float: right;
+    color: #696969;
+    right: 30px;
+    top: 20px;
+    position: absolute;
+    font-family: sans-serif;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    width: 15%;
+    height: 30px;
 }
 /*Select table*/
 table {
@@ -43,6 +67,7 @@ table {
     padding: 5px;
     margin-top: 100px;
     margin-bottom: 100px;
+    background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;
     font-family: sans-serif;
@@ -50,12 +75,17 @@ table {
 th {
     padding: 10px;
     color: gray;
+    background-color: white;
+}
+a {
+    text-decoration: none;
+    color: gray;
 }
 tr {
     border-radius: 15px;
+    background-color: lightgray;
 }
 td {
     padding: 15px;
-    background-color: lightgray;
     color: #696969;
 }
