@@ -4,6 +4,7 @@
   <head>
     <title>Livros</title>
     <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="../crud/crud.js"></script>
     <?php $value = ""; ?>
@@ -11,15 +12,18 @@
 
   <body>
 
-    <table>
-    <th><a id = "sortByTitle" href='../crud/select.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    <input id="toInsert" value="Cadastrar Livro" type="submit">
+
+    <table class="table table-bordered text-center">
+    <th class="text-center"><a id = "sortByTitle" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Título</a></th>
-    <th><a id = "sortByAuthor" href='../crud/select.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    <th class="text-center"><a id = "sortByAuthor" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Autor</a></th>
-    <th><a id = "sortByOwner" href='../crud/select.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    <th class="text-center"><a id = "sortByOwner" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Dono</a></th>
-    <th><a id = "sortByDescription" href='../crud/select.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    <th class="text-center"><a id = "sortByDescription" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Descrição</a></th>
+    <th></th>
 
 <?php
 
@@ -44,13 +48,12 @@
        <td>{$row['author']}</td>
        <td>{$row['owner']}</td><
        <td>{$row['description']}</td>
+       <td><button type='submit'><span class='glyphicon glyphicon-trash'></span></button></td>
        </tr>";
     }
 
 ?>
   </table>
-
-  <input id="toInsert" value="Cadastrar Livro" type="submit">
 
   </body>
 

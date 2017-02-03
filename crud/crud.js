@@ -4,14 +4,11 @@ $(document).ready(function(){
   setTimeout(function() {
     $("#message").fadeOut('slow');
 }, 2000);
-
   //Go to next page
   $("#toSelect").click(function(){
-    location.href = "../crud/select.php";
+    location.href = "../crud/index.php";
   });
 });
-
-
 //Select.php
 //Set $value
 $(document).ready(function(){
@@ -32,4 +29,6 @@ $(document).ready(function(){
   $("#toInsert").click(function(){
     location.href = "../public/insert.php";
   });
+  //Delete row
+
 });
