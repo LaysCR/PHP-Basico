@@ -5,7 +5,7 @@ body {
 h2 {
     text-align: center;
 }
-#insert-form {
+#insert-form, #login-form, #signin-form {
     width: 30%;
     margin: auto;
     padding: 5px;
@@ -16,11 +16,11 @@ h2 {
     border-radius: 10px;
     font-family: sans-serif;
 }
-#insert-form p {
+#insert-form p, #login-form p, #signin-form p {
     margin-top: 20px;
     margin-left: 20px;
 }
-#insert-form input {
+#insert-form input, #login-form input, #signin-form input {
     width: 50%;
     padding: 5px 5px;
     margin-left: 20px;
@@ -28,21 +28,22 @@ h2 {
     border: 2px solid #ccc;
     border-radius: 4px;
 }
-#insert-form input:focus {
+#insert-form input:focus, #login-form input:focus, #signin-form input:focus {
     border: 2px solid #696969;
 }
-#insert-form #button {
+#insert-form #button, #login-form #btn-login, #signin-form #btn-signin {
     float: right;
     margin-top: 20px;
     margin-right: 30px;
     color: #696969;
     font-size: 14px;
 }
-#insert-form #button:hover, #toSelect:hover, #toInsert:hover {
+#insert-form #button:hover, #login-form #btn-login:hover,
+#signin-form #btn-signin:hover, #toSelect:hover, #toInsert:hover {
     background-color: #696969;
     color: white;
 }
-#message {
+#message, #user-pass {
     display: inline-block;
     font-size: 12px;
     margin-left: 25px;
