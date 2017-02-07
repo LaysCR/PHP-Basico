@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php
+
+    include("../pdo/Connection.php");
+    include("../crud/user.php");
+    $user = new User();
+
+    if($user->is_loggedin()=="") {
+      $user->redirect('../crud/index.php');
+    }
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +21,24 @@
   </head>
 
   <body>
+
+    <!-- Menu -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">Livros DTE</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="../crud/index.php">Livros</a></li>
+          <li><a href="../public/insert.php">Cadastrar Livro
+          <li><a href="../public/signin.php">Cadastrar Usuário</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../public/login.php"><span class="glyphicon glyphicon-log-in"></span></span><?php echo " Olá, " .$_SESSION['user']; ?></a></li>
+          <li><a href="../crud/index.php?logout=true"><span class="glyphicon glyphicon-user"></span> Log out</a></li>
+        </ul>
+      </div>
+    </nav>
 
     <div id = "insert-form">
       <h2>Cadastrar livro</h2>
@@ -37,7 +65,7 @@
       </form>
     </div>
 
-    <input id="toSelect" value="Livros Cadastrados" type="submit">
+    <!-- <input id="toSelect" value="Livros Cadastrados" type="submit"> -->
 
     </body>
 

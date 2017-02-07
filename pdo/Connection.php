@@ -1,5 +1,7 @@
 <?php
 
+  session_start();
+
 class Connection
 {
   private $host;
@@ -11,6 +13,7 @@ class Connection
 
   public function __construct($host, $database, $user, $password)
   {
+
     $this->host = $host;
     $this->database = $database;
     $this->user = $user;

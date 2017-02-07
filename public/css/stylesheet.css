@@ -1,6 +1,11 @@
 body {
     background-image: url(/public/css/background.jpeg);
 }
+/*Menu*/
+.navbar {
+    background-color: #ccc !important;
+    border-color: #ccc !important;
+}
 /*Insert form*/
 h2 {
     text-align: center;

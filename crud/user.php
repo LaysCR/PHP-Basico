@@ -1,40 +1,44 @@
 <?php
 class USER
 {
+    private $pdo;
 
     function __construct() {
         //Connect to database
         require_once('../pdo/Connection.php');
 
         $connection = new Connection("127.0.0.1" , "Emprestimos", "root", "abcdefgh");
-        $pdo = $connection->getPDO();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo = $connection->getPDO();
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function register($uname,$email,$password) {
         //Register user
-        // $new_password = password_hash($password, PASSWORD_DEFAULT);
+        $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-         $sql = ("INSERT INTO usuario(user,email,password) VALUES (:uname, :email, :password)");
+         $sql = $this->pdo->prepare("INSERT INTO usuario(user,email,password) VALUES (:user, :email, :password)");
 
-         $sql->bindParam(":uname", $uname);
+         $sql->bindParam(":user", $uname);
          $sql->bindParam(":email", $email);
-         $sql->bindParam(":password", $password);
+         $sql->bindParam(":password", $new_password);
          $sql->execute();
 
+         return true;
     }
 
     public function login($uname,$email,$password) {
         //Login
-        $sql = prepare("SELECT * FROM usuario WHERE user=:uname OR email=:email LIMIT 1");
+        $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE user=:uname OR email=:email LIMIT 1");
+
         $sql->bindParam(':uname', $uname);
         $sql->bindParam(':email', $email);
-        $sql->bindParam(':password', $password);
         $sql->execute();
+
         $userRow=$sql->fetch(PDO::FETCH_ASSOC);
         if(count($userRows > 0)) {
            if(password_verify($password, $userRow['password'])) {
-                $_SESSION['user_session'] = $userRow['user_id'];
+                $_SESSION['user'] = $userRow['user'];
+                session_start();
                 return true;
              }
              else {
@@ -46,7 +50,7 @@ class USER
 
    public function is_loggedin() {
       //Start session
-      if(isset($_SESSION['user_session']))
+      if(isset($_SESSION['user']))
       {
          return true;
       }
@@ -58,7 +62,8 @@ class USER
 
    public function logout() {
         session_destroy();
-        unset($_SESSION['user_session']);
+        unset($_SESSION['user']);
+        unset($_GET['logout']);
         return true;
    }
 }
