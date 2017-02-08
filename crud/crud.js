@@ -3,6 +3,8 @@
 $(document).ready(function(){
   setTimeout(function() {
     $("#message").fadeOut('slow');
+    $("#user-pass").fadeOut('slow');
+    $("#error").fadeOut('slow');
 }, 2000);
   //Go to next page
   $("#toSelect").click(function(){
@@ -30,5 +32,26 @@ $(document).ready(function(){
     location.href = "../public/insert.php";
   });
   //Delete row
+  $(".delete").click(function(){
+    swal({
+      title: "Deseja deletar o arquivo?",
+      text: "Você não será capaz de recuperar o arquivo após deletado!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Não, cancelar!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
 
+    function(isConfirm){
+      if (isConfirm) {
+        swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
+      }
+      else {
+	       swal("Cancelado", "O registro do livro não foi deletado.", "error");
+      }
+    });
+  });
 });

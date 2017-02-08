@@ -14,7 +14,25 @@ class USER
 
     public function register($uname,$email,$password) {
         //Register user
-        $new_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = $this->pdo->prepare("SELECT user,email FROM usuario WHERE user=:uname OR email=:email");
+        $sql->bindParam(":uname", $uname);
+        $sql->bindParam(":email", $email);
+        $sql->execute();
+
+        $row=$sql->fetch(PDO::FETCH_ASSOC);
+        if($row['user']==$uname){
+            $_SESSION['error'] = '<div id="error">Nome já cadastrado
+            <span class="glyphicon glyphicon-exclamation-sign"></span></div>';
+            return false;
+        }
+        else if($row['email']==$email){
+          $_SESSION['error'] = '<div id="error">Email já cadastrado
+          <span class="glyphicon glyphicon-exclamation-sign"></span></div>';
+            return false;
+        }
+        else {
+         $new_password = password_hash($password, PASSWORD_DEFAULT);
 
          $sql = $this->pdo->prepare("INSERT INTO usuario(user,email,password) VALUES (:user, :email, :password)");
 
@@ -24,11 +42,12 @@ class USER
          $sql->execute();
 
          return true;
+       }
     }
 
     public function login($uname,$email,$password) {
         //Login
-        $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE user=:uname OR email=:email LIMIT 1");
+        $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE user=:uname OR email=:email");
 
         $sql->bindParam(':uname', $uname);
         $sql->bindParam(':email', $email);
@@ -42,9 +61,23 @@ class USER
                 return true;
              }
              else {
+                $_SESSION["user-pass"] = '<div id="user-pass">Usuário ou senha incorretos
+                <span class="glyphicon glyphicon-exclamation-sign"></span></div>';
                 return false;
              }
           }
+
+   }
+
+   public function delete($row) {
+      //Delete row
+      $sql = $this->pdo>prepare("DELETE FROM livro WHERE id=:id");
+
+      $sql->bindParam(":id", $id);
+      $sql->execute();
+   }
+
+   public function currentRow() {
 
    }
 

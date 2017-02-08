@@ -15,7 +15,6 @@
       }
       else {
         $error = "Wrong Details !";
-        echo "Dados incorretos.";
       }
     }
 
@@ -30,6 +29,8 @@
     <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="../crud/crud.js"></script>
+    <script src="../public/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/sweetalert-master/dist/sweetalert.css">
   </head>
 
   <body>
@@ -41,12 +42,28 @@
         </div>
         <ul class="nav navbar-nav">
           <li><a href="../crud/index.php">Livros</a></li>
-          <li><a href="../public/insert.php">Cadastrar Livro</a></li>
+          <?php
+          if($user->is_loggedin()!=""){
+              echo '<li><a href="../public/insert.php">Cadastrar Livro</a></li>';
+          }
+          ?>
           <li><a href="../public/signin.php">Cadastrar Usuário</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="../public/login.php"><span class="glyphicon glyphicon-log-in"></span><?php echo " Olá, " .$_SESSION['user']; ?></a></li>
-          <li><a href="../crud/index.php?logout=true"><span class="glyphicon glyphicon-user"></span> Log out</a></li>
+          <li>
+            <?php
+            if($user->is_loggedin()!="") {
+              echo "<a href='#'><span class='glyphicon glyphicon-log-in'></span> Olá, " .$_SESSION['user'];
+            }
+            else {
+              echo "<a href='../public/login.php'><span class='glyphicon glyphicon-log-in'></span> Log in";
+            }
+            ?></a></li>
+            <?php
+            if($user->is_loggedin()!=""){
+                echo '<li><a href="../crud/index.php?logout=true"><span class="glyphicon glyphicon-user"></span> Log out</a></li>';
+            }
+            ?>
         </ul>
       </div>
     </nav>
@@ -59,12 +76,16 @@
         <p>Senha: </p>
         <input id="password" type="password" name="password" placeholder="Senha">
         <br><br>
+        <?php
+        if (isset($_SESSION['user-pass'])) {
+          echo $_SESSION['user-pass'];
+          unset($_SESSION['user-pass']);
 
+        }
+        ?>
         <input id="btn-login" type="submit" name="btn-login" value="Logar">
       </form>
     </div>
-
-    <!-- <input id="toSelect" value="Livros Cadastrados" type="submit"> -->
 
     </body>
 

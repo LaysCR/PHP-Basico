@@ -48,11 +48,17 @@ h2 {
     background-color: #696969;
     color: white;
 }
-#message, #user-pass {
+#message {
     display: inline-block;
     font-size: 12px;
     margin-left: 25px;
     color: green;
+}
+#user-pass, #error {
+    display: block;
+    font-size: 12px;
+    margin-left: 25px;
+    color: red;
 }
 /*Next Page*/
 #toSelect, #toInsert {
