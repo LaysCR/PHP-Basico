@@ -69,12 +69,20 @@ class USER
 
    }
 
-   public function delete($row) {
+   public function delete($id) {
       //Delete row
-      $sql = $this->pdo>prepare("DELETE FROM livro WHERE id=:id");
+      
+      try {
+      $sql = $this->pdo->prepare("DELETE FROM livro WHERE id=:id");
 
       $sql->bindParam(":id", $id);
       $sql->execute();
+      }
+      catch(PDOException $e) {
+          $e->getMessage();
+      }
+      return true;
+
    }
 
    public function currentRow() {

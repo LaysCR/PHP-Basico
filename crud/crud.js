@@ -33,25 +33,31 @@ $(document).ready(function(){
   });
   //Delete row
   $(".delete").click(function(){
-    swal({
-      title: "Deseja deletar o arquivo?",
-      text: "Você não será capaz de recuperar o arquivo após deletado!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Sim, deletar!",
-      cancelButtonText: "Não, cancelar!",
-      closeOnConfirm: false,
-      closeOnCancel: false
-    },
+    $("#form").submit(function(e){
+      e.preventDefault();
+      // var form = $(this);
 
-    function(isConfirm){
-      if (isConfirm) {
-        swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
-      }
-      else {
-	       swal("Cancelado", "O registro do livro não foi deletado.", "error");
-      }
-    });
+      swal({
+        title: "Deseja deletar o arquivo?",
+        text: "Você não será capaz de recuperar o arquivo após deletado!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, deletar!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+
+      function(isConfirm){
+        if (isConfirm) {
+          swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
+          e.submit();
+        }
+        else {
+           swal("Cancelado", "O registro do livro não foi deletado.", "error");
+        }
+      });
+    })
   });
 });

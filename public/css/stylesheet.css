@@ -75,6 +75,9 @@ h2 {
     font-size: 14px;
 }
 /*Select table*/
+.id {
+    display: none;
+}
 table {
     width: 60% !important;
     margin: auto;

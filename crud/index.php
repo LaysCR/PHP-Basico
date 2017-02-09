@@ -1,6 +1,5 @@
 <?php
 
-    include("../crud/Connection.php");
     include("../crud/user.php");
     $user = new User();
 
@@ -62,6 +61,7 @@
     </nav>
 
     <table class="table table-bordered text-center">
+    <th class="id">Id</th>
     <th class="text-center"><a id = "sortByTitle" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Título</a></th>
     <th class="text-center"><a id = "sortByAuthor" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
@@ -83,21 +83,27 @@
     if ($value == ""){$value = 'title';}
     $isAsc = isset($_GET['order'])? (bool) $_GET['order']: 1;
 
-    $sql = ("SELECT title, author, owner, description FROM livro ORDER BY $value ".($isAsc?"ASC":"DESC"));
+    $sql = ("SELECT id, title, author, owner, description FROM livro ORDER BY $value ".($isAsc?"ASC":"DESC"));
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
 
+    $index = 0;
     foreach ($result as $row) {
       if($user->is_loggedin()!=""){
+        $id[] = $row['id'];
        echo "<tr>
+       <form id='form' action='../crud/delete.php' method='get'>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
-       <td>{$row['owner']}</td><
+       <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
-       <td><a class='delete' href='#' type='submit' title='Deletar'><span class='glyphicon glyphicon-trash'></span></a></td>
-       <td><a class='update' href='#' type='submit'title='Atualizar'><span class='glyphicon glyphicon-refresh'></span></a></td>
+       <input type='hidden' name='id' value=$id[$index]>
+       <td><input class='delete' type='submit' title='Deletar' value=''><span class='glyphicon glyphicon-trash'></span></td>
+       <td><a class='update' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-refresh'></span></a></td>
+       </form>
        </tr>";
+       $index++;
      }
      else {
        echo "<tr>
