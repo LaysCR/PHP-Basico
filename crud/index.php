@@ -93,13 +93,13 @@
       if($user->is_loggedin()!=""){
         $id[] = $row['id'];
        echo "<tr>
-       <form id='form' action='../crud/delete.php' method='get'>
+       <form id='send' action='../crud/delete.php' method='post'>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
        <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
        <input type='hidden' name='id' value=$id[$index]>
-       <td><input class='delete' type='submit' title='Deletar' value=''><span class='glyphicon glyphicon-trash'></span></td>
+       <td><input class='delete' type='submit' title='Deletar' value='X'><span class='glyphicon glyphicon-trash'></span></td>
        <td><a class='update' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-refresh'></span></a></td>
        </form>
        </tr>";

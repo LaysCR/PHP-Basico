@@ -32,10 +32,14 @@ $(document).ready(function(){
     location.href = "../public/insert.php";
   });
   //Delete row
-  $(".delete").click(function(){
-    $("#form").submit(function(e){
-      e.preventDefault();
-      // var form = $(this);
+  $(".delete").click(function (e, params){
+    
+      // e.preventDefault();
+      var localParams = params || {};
+
+      if(!localParams.send) {
+        e.preventDefault();
+      }
 
       swal({
         title: "Deseja deletar o arquivo?",
@@ -47,17 +51,19 @@ $(document).ready(function(){
         cancelButtonText: "Não, cancelar!",
         closeOnConfirm: false,
         closeOnCancel: false
+
       },
 
       function(isConfirm){
         if (isConfirm) {
           swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
-          e.submit();
+          // setTimeout(function() {
+            $(e.currentTarget).trigger(e.type, {'send' :true});
+          // }, 5000);
         }
         else {
            swal("Cancelado", "O registro do livro não foi deletado.", "error");
         }
       });
-    })
   });
 });
