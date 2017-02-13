@@ -61,7 +61,6 @@
     </nav>
 
     <table class="table table-bordered text-center">
-    <th class="id">Id</th>
     <th class="text-center"><a id = "sortByTitle" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Título</a></th>
     <th class="text-center"><a id = "sortByAuthor" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
@@ -88,22 +87,23 @@
     $stmt->execute();
     $result = $stmt->fetchAll();
 
-    $index = 0;
     foreach ($result as $row) {
       if($user->is_loggedin()!=""){
-        $id[] = $row['id'];
+
        echo "<tr>
-       <form id='send' action='../crud/delete.php' method='post'>
+       <td id='$id[$index]' class='id'>{$row['id']}</td>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
        <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
-       <input type='hidden' name='id' value=$id[$index]>
-       <td><input class='delete' type='submit' title='Deletar' value='X'><span class='glyphicon glyphicon-trash'></span></td>
-       <td><a class='update' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-refresh'></span></a></td>
+       <td>
+       <form method='post'>
+       <input class='teste' type='hidden' value=".$row['id'].">
+       <a class='delete' href='#' title='Deletar' type='submit'><span class='glyphicon glyphicon-trash'></span></a></td>
        </form>
+       <td><a class='update' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-refresh'></span></a></td>
        </tr>";
-       $index++;
+
      }
      else {
        echo "<tr>

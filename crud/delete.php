@@ -4,8 +4,5 @@
     $user = new USER();
 
     $id = $_POST['id'];
-
-    if ($user->delete($id)) {
-      $user->redirect('../crud/index.php');
-    }
+    $user->delete($id);
 ?>

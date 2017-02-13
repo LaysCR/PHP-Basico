@@ -32,16 +32,13 @@ $(document).ready(function(){
     location.href = "../public/insert.php";
   });
   //Delete row
-  $(".delete").click(function (e, params){
-    
-      // e.preventDefault();
-      var localParams = params || {};
+  $(".delete").click(function () {
 
-      if(!localParams.send) {
-        e.preventDefault();
-      }
+    var id = $(this).parent().children().val();
+    var row = $(this).closest('tr');
+    // console.log(id);
 
-      swal({
+    swal({
         title: "Deseja deletar o arquivo?",
         text: "Você não será capaz de recuperar o arquivo após deletado!",
         type: "warning",
@@ -51,19 +48,26 @@ $(document).ready(function(){
         cancelButtonText: "Não, cancelar!",
         closeOnConfirm: false,
         closeOnCancel: false
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          type: "POST",
+          url: "../crud/delete.php",
+          data: {
+            'id': id
+          },
+          success: function(data) {
+            swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
+            row.empty();
+          }
+        });
+      }
+      else {
+	       swal("Cancelado", "O registro do livro não foi deletado.", "error");
+       }
+    });
 
-      },
-
-      function(isConfirm){
-        if (isConfirm) {
-          swal("Deletado!", "Registro do livro deletado com sucesso.", "success");
-          // setTimeout(function() {
-            $(e.currentTarget).trigger(e.type, {'send' :true});
-          // }, 5000);
-        }
-        else {
-           swal("Cancelado", "O registro do livro não foi deletado.", "error");
-        }
-      });
   });
+
 });
