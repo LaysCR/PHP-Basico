@@ -69,5 +69,33 @@ $(document).ready(function(){
     });
 
   });
+  //Auto_load
+  function auto_load(){
+        $.ajax({
+          url: "../crud/index.php",
+          cache: false,
+          success: function(data){
+             $("#table").html(data);
+          }
+        });
+  }
+  //Insert.php->Modal&Ajax
+  $("#form-insert").submit(function(e){
+      // var data = $("#form-insert").serialize();
+      e.preventDefault();
 
+      // console.log(data);
+      $.ajax({
+        type : "POST",
+        url : "../crud/insert.php",
+        data : $(this).serialize(),
+        success: function(data) {
+            // $("table").html(data);
+            $("#exampleModal").modal("hide");
+        }
+      });
+      auto_load();
+  });
+
+//Exit
 });

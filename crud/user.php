@@ -71,7 +71,7 @@ class USER
 
    public function delete($id) {
       //Delete row
-      
+
       try {
       $sql = $this->pdo->prepare("DELETE FROM livro WHERE id=:id");
 
@@ -82,10 +82,6 @@ class USER
           $e->getMessage();
       }
       return true;
-
-   }
-
-   public function currentRow() {
 
    }
 

@@ -20,10 +20,10 @@ $sql = $pdo->prepare("INSERT INTO livro (title, author, owner, description)
     $sql->bindParam(':description', $description);
 $sql->execute();
 
-  $_SESSION["message"] = '<div id="message">Cadastrado com sucesso! <span class="glyphicon glyphicon-ok"></span></div>';
+  // $_SESSION["message"] = '<div id="message">Cadastrado com sucesso! <span class="glyphicon glyphicon-ok"></span></div>';
 
   // sleep(1.5);
-  header('Location: ../public/insert.php');
-  exit();
+  // header('Location: ../public/insert.php');
+  // exit();
 
 ?>

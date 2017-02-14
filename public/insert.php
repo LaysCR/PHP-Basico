@@ -17,6 +17,7 @@
     <link type="text/css" rel="stylesheet" href="../public/css/stylesheet.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../crud/crud.js"></script>
     <script src="../public/sweetalert-master/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../public/sweetalert-master/dist/sweetalert.css">
@@ -31,27 +32,28 @@
           <a class="navbar-brand">Livros DTE</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="../crud/index.php">Livros</a></li>
+          <li><a class="btn" href="../crud/index.php">Livros</a></li>
           <?php
           if($user->is_loggedin()!=""){
-              echo '<li><a href="../public/insert.php">Cadastrar Livro</a></li>';
+              // echo '<li><a href="../public/insert.php">Cadastrar Livro</a></li>';
+              echo '<li><a class="btn" href="#" data-toggle="modal" data-target="#exampleModal">Cadastrar Livro</a></li>';
           }
           ?>
-          <li><a href="../public/signin.php">Cadastrar Usuário</a></li>
+          <li><a class="btn" href="../public/signin.php">Cadastrar Usuário</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
             <?php
             if($user->is_loggedin()!="") {
-              echo "<a href='#'><span class='glyphicon glyphicon-log-in'></span> Olá, " .$_SESSION['user'];
+              echo "<a class='btn' href='#'><span class='glyphicon glyphicon-log-in'></span> Olá, " .$_SESSION['user'];
             }
             else {
-              echo "<a href='../public/login.php'><span class='glyphicon glyphicon-log-in'></span> Log in";
+              echo "<a class='btn' href='../public/login.php'><span class='glyphicon glyphicon-log-in'></span> Log in";
             }
             ?></a></li>
             <?php
             if($user->is_loggedin()!=""){
-                echo '<li><a href="../crud/index.php?logout=true"><span class="glyphicon glyphicon-user"></span> Log out</a></li>';
+                echo '<li><a class="btn" href="../crud/index.php?logout=true"><span class="glyphicon glyphicon-user"></span> Log out</a></li>';
             }
             ?>
         </ul>
