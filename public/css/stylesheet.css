@@ -75,6 +75,14 @@ h2 {
     font-size: 14px;
 }
 /*Select table*/
+.toastr-success {
+    background-color: #2F96B4;
+}
+.toast-top-right {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
 .id {
     display: none;
 }

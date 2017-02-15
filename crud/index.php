@@ -63,7 +63,7 @@
         </ul>
       </div>
     </nav>
-
+    <!-- Table -->
     <table id="table" class="table table-bordered text-center">
     <th class="text-center"><a id = "sortByTitle" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Título</a></th>

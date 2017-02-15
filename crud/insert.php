@@ -18,12 +18,12 @@ $sql = $pdo->prepare("INSERT INTO livro (title, author, owner, description)
     $sql->bindParam(':author', $author);
     $sql->bindParam(':owner', $owner);
     $sql->bindParam(':description', $description);
-$sql->execute();
+      $sql->execute();
 
-  // $_SESSION["message"] = '<div id="message">Cadastrado com sucesso! <span class="glyphicon glyphicon-ok"></span></div>';
+    $id = $pdo->lastInsertId();
+    $json = [ 'id'=>$id, 'title'=>$title, 'author'=>$author, 'owner'=>$owner, 'description'=>$description ];
+    $data = (Object) $json;
 
-  // sleep(1.5);
-  // header('Location: ../public/insert.php');
-  // exit();
-
+    header("Content-type: application/json");
+    echo json_encode($data);
 ?>
