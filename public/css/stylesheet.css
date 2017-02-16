@@ -10,7 +10,7 @@ body {
 h2 {
     text-align: center;
 }
-#insert-form, #login-form, #signin-form {
+#login-form, #signin-form {
     width: 30%;
     margin: auto;
     padding: 5px;
@@ -21,11 +21,11 @@ h2 {
     border-radius: 10px;
     font-family: sans-serif;
 }
-#insert-form p, #login-form p, #signin-form p {
+#login-form p, #signin-form p {
     margin-top: 20px;
     margin-left: 20px;
 }
-#insert-form input, #login-form input, #signin-form input {
+#login-form input, #signin-form input {
     width: 50%;
     padding: 5px 5px;
     margin-left: 20px;
@@ -33,26 +33,20 @@ h2 {
     border: 2px solid #ccc;
     border-radius: 4px;
 }
-#insert-form input:focus, #login-form input:focus, #signin-form input:focus {
+#login-form input:focus, #signin-form input:focus {
     border: 2px solid #696969;
 }
-#insert-form #button, #login-form #btn-login, #signin-form #btn-signin {
+#login-form #btn-login, #signin-form #btn-signin {
     float: right;
     margin-top: 20px;
     margin-right: 30px;
     color: #696969;
     font-size: 14px;
 }
-#insert-form #button:hover, #login-form #btn-login:hover,
+#login-form #btn-login:hover,
 #signin-form #btn-signin:hover, #toSelect:hover, #toInsert:hover {
     background-color: #696969;
     color: white;
-}
-#message {
-    display: inline-block;
-    font-size: 12px;
-    margin-left: 25px;
-    color: green;
 }
 #user-pass, #error {
     display: block;
@@ -75,14 +69,21 @@ h2 {
     font-size: 14px;
 }
 /*Select table*/
-.toastr-success {
-    background-color: #2F96B4;
+/*Toastr*/
+.toast-success {
+  background-color: #696969 !important;
 }
-.toast-top-right {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+/*Modal*/
+#exampleModal, #form-insert input:focus, #form-insert textarea:focus {
+    color: #696969 !important;
+    border-color: #696969;
+    box-shadow: none;
 }
+#form-submit, #form-close, #form-submit:hover, #form-close:hover {
+    color: #696969;
+    background-color: #ccc;
+}
+/*Table*/
 .id {
     display: none;
 }

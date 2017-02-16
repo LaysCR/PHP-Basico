@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/javascript" src="../crud/crud.js"></script>
     <script src="../public/sweetalert-master/dist/sweetalert.min.js"></script>
@@ -133,20 +133,36 @@
         <form id="form-insert">
           <!-- <div class="form-group"> -->
             <label for="recipient-name" class="control-label">Nome:</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="Título do livro" required>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Título do livro" required><br>
             <label for="recipient-name" class="control-label">Autor:</label>
-            <input type="text" class="form-control" id="author" name="author" placeholder="Autor do livro" required>
-            <label for="recipient-name" class="control-label">Dono:</label>
-            <input type="text" class="form-control" id="owner" name="owner" placeholder="Proprietário do livro" required>
-          <!-- </div> -->
+            <input type="text" class="form-control" id="author" name="author" placeholder="Autor do livro" required><br>
+            <!-- Select List -->
+            <div class="form-group">
+              <label for="sel1">Editora:</label>
+               <select class="form-control" id="sel1">
+                 <option value="" selected disabled>Selecione uma editora</option>
+                 <?php
 
+                  $sql2 = ("SELECT name FROM editora ORDER BY ASC");
+                  $stmt2 = $pdo->prepare($sql2);
+                  $stmt2->execute();
+                  $list= $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($list as $opt){
+                      echo "<option>{$opt['name']}</option>";
+                    }
+                 ?>
+               </select>
+              </div>
+            <label for="recipient-name" class="control-label">Dono:</label>
+            <input type="text" class="form-control" id="owner" name="owner" placeholder="Proprietário do livro" required><br>
+          <!-- </div> -->
           <!-- <div class="form-group"> -->
             <label for="message-text" class="control-label">Descrição:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Breve descrição do livro"></textarea>
             <br>
           <!-- </div> -->
           <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn" data-dismiss="modal" id="form-close">Cancelar</button>
             <button type="submit" class="btn" id="form-submit">Cadastrar</button>
           </div>
         </form>
