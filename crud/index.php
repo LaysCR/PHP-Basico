@@ -69,6 +69,8 @@
     Título</a></th>
     <th class="text-center"><a id = "sortByAuthor" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Autor</a></th>
+    <th class="text-center"><a id = "sortByPublisher" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    Editora</a></th>
     <th class="text-center"><a id = "sortByOwner" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Dono</a></th>
     <th class="text-center"><a id = "sortByDescription" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
@@ -86,7 +88,9 @@
     if ($value == ""){$value = 'title';}
     $isAsc = isset($_GET['order'])? (bool) $_GET['order']: 1;
 
-    $sql = ("SELECT id, title, author, owner, description FROM livro ORDER BY $value ".($isAsc?"ASC":"DESC"));
+    $sql = ("SELECT livro.title, livro.author, editora.name, livro.owner, livro.description
+              FROM livro INNER JOIN editora ON livro.idPublisher=editora.idPublisher ORDER BY $value ".($isAsc?"ASC":"DESC"));
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -95,9 +99,10 @@
       if($user->is_loggedin()!=""){
 
        echo "<tr>
-       <td id='$id[$index]' class='id'>{$row['id']}</td>
+       <td class='id'>{$row['id']}</td>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
+       <td>{$row['name']}</td>
        <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
        <td><a class='update btn' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-pencil'></span></a></td>
@@ -130,7 +135,7 @@
         </div>
         <div class="modal-body">
           <!-- Form -->
-        <form id="form-insert">
+        <form action="../crud/insert.php" method="post" id="form-insert">
           <!-- <div class="form-group"> -->
             <label for="recipient-name" class="control-label">Nome:</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Título do livro" required><br>
@@ -139,17 +144,16 @@
             <!-- Select List -->
             <div class="form-group">
               <label for="sel1">Editora:</label>
-               <select class="form-control" id="sel1">
+               <select class="form-control" id="publisher">
                  <option value="" selected disabled>Selecione uma editora</option>
                  <?php
-
-                  $sql2 = ("SELECT name FROM editora ORDER BY ASC");
-                  $stmt2 = $pdo->prepare($sql2);
-                  $stmt2->execute();
-                  $list= $stmt2->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($list as $opt){
-                      echo "<option>{$opt['name']}</option>";
-                    }
+                    $sql = "SELECT idPublisher, name FROM editora";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll();
+                      foreach($result as $opt){
+                        echo "<option value=".$opt['idPublisher'].">".$opt['idPublisher']." ".$opt['name']."</option>";
+                      }
                  ?>
                </select>
               </div>

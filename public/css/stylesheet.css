@@ -74,7 +74,7 @@ h2 {
   background-color: #696969 !important;
 }
 /*Modal*/
-#exampleModal, #form-insert input:focus, #form-insert textarea:focus {
+#exampleModal, #form-insert input:focus, #form-insert textarea:focus, #exampleModal select:focus {
     color: #696969 !important;
     border-color: #696969;
     box-shadow: none;

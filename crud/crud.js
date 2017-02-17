@@ -26,6 +26,9 @@ $(document).ready(function(){
   $("#sortByOwner").click(function() {
     document.cookie = "value = owner";
   })
+  $("#sortByPublisher").click(function() {
+    document.cookie = "value = name";
+  })
   $("#sortByDescription").click(function() {
     document.cookie = "value = description";
   })
@@ -76,7 +79,7 @@ $(document).ready(function(){
   }
   //Insert.php->Modal&Ajax
   $("#form-insert").on('submit', function(e){
-      e.preventDefault();
+    e.preventDefault();
 
       $.ajax({
         type : "POST",
@@ -87,6 +90,7 @@ $(document).ready(function(){
                       "<td>"+ data.title +"</td>" +
                       "<td>"+ data.author +"</td>" +
                       "<td>"+ data.owner +"</td>" +
+                      "<td>"+ data.publisher +"</td>" +
                       "<td>"+ data.description +"</td>" +
                       "<td><a class='update btn' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
                       "<td>" +
@@ -119,16 +123,15 @@ $(document).ready(function(){
               "hideMethod": "fadeOut"
             }
 
-            document.getElementById('title').value = "";
-            document.getElementById('author').value = "";
-            document.getElementById('owner').value = "";
-            document.getElementById('description').value = "";
-
         }
 
       });
 
   });
+//Clear Modal
+  $("#exampleModal").on('hidden.bs.modal', function () {
+    $(this).find("input,textarea,select").val('').end();
 
+  });
 //Exit
 });
