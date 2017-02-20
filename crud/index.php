@@ -25,6 +25,8 @@
     <script type="text/javascript" src="../crud/crud.js"></script>
     <script src="../public/sweetalert-master/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../public/sweetalert-master/dist/sweetalert.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   </head>
 
   <body>
@@ -88,7 +90,7 @@
     if ($value == ""){$value = 'title';}
     $isAsc = isset($_GET['order'])? (bool) $_GET['order']: 1;
 
-    $sql = ("SELECT livro.title, livro.author, editora.name, livro.owner, livro.description
+    $sql = ("SELECT livro.id, livro.title, livro.author, editora.name, livro.owner, livro.description
               FROM livro INNER JOIN editora ON livro.idPublisher=editora.idPublisher ORDER BY $value ".($isAsc?"ASC":"DESC"));
 
     $stmt = $pdo->prepare($sql);
@@ -118,6 +120,7 @@
        echo "<tr>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
+       <td>{$row['name']}</td>
        <td>{$row['owner']}</td><
        <td>{$row['description']}</td>";
      }
@@ -141,21 +144,34 @@
             <input type="text" class="form-control" id="title" name="title" placeholder="Título do livro" required><br>
             <label for="recipient-name" class="control-label">Autor:</label>
             <input type="text" class="form-control" id="author" name="author" placeholder="Autor do livro" required><br>
+            <!-- Tag List -->
+            <label for="recipient-name" class="control-label">Tags:</label><br>
+            <select id="tags" class="js-example-basic-multiple" multiple="multiple">
+              <?php
+                $sql = "SELECT idTag, nameTag FROM tags";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+                  foreach($result as $opt) {
+                    echo "<option value=".$opt['idTag'].">".$opt['nameTag']."</option>";
+                  }
+              ?>
+            </select>
             <!-- Select List -->
             <div class="form-group">
-              <label for="sel1">Editora:</label>
-               <select class="form-control" id="publisher">
-                 <option value="" selected disabled>Selecione uma editora</option>
-                 <?php
-                    $sql = "SELECT idPublisher, name FROM editora";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll();
-                      foreach($result as $opt){
-                        echo "<option value=".$opt['idPublisher'].">".$opt['idPublisher']." ".$opt['name']."</option>";
-                      }
-                 ?>
-               </select>
+              <br><label for="sel1">Editora:</label><br>
+              <select class="js-example-basic-hide-search" id="publisher">
+                <option value="" selected disabled>Selecione uma editora</option>
+                <?php
+                   $sql = "SELECT idPublisher, name FROM editora";
+                   $stmt = $pdo->prepare($sql);
+                   $stmt->execute();
+                   $result = $stmt->fetchAll();
+                     foreach($result as $opt){
+                       echo "<option value=".$opt['idPublisher'].">".$opt['name']."</option>";
+                     }
+                ?>
+              </select>
               </div>
             <label for="recipient-name" class="control-label">Dono:</label>
             <input type="text" class="form-control" id="owner" name="owner" placeholder="Proprietário do livro" required><br>

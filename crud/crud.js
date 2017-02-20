@@ -80,17 +80,28 @@ $(document).ready(function(){
   //Insert.php->Modal&Ajax
   $("#form-insert").on('submit', function(e){
     e.preventDefault();
-
+    var title = $("#title").val();
+    var author = $("#author").val();
+    var publisher = $("#publisher").val();
+    var owner = $("#owner").val();
+    var description = $("#description").val();
+    var data = {
+      'title': title,
+      'author': author,
+      'publisher': parseInt(publisher),
+      'owner': owner,
+      'description': description
+    };
       $.ajax({
         type : "POST",
         url : "../crud/insert.php",
-        data : $(this).serialize(),
+        data : data,
         success: function(data) {
           var row = "<tr>" +
                       "<td>"+ data.title +"</td>" +
                       "<td>"+ data.author +"</td>" +
-                      "<td>"+ data.owner +"</td>" +
                       "<td>"+ data.publisher +"</td>" +
+                      "<td>"+ data.owner +"</td>" +
                       "<td>"+ data.description +"</td>" +
                       "<td><a class='update btn' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
                       "<td>" +
@@ -124,9 +135,13 @@ $(document).ready(function(){
             }
 
         }
-
       });
 
+  });
+// Tag
+  $(".js-example-basic-multiple").select2();
+  $(".js-example-basic-hide-search").select2({
+    minimumResultsForSearch: Infinity
   });
 //Clear Modal
   $("#exampleModal").on('hidden.bs.modal', function () {

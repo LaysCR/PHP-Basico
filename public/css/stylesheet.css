@@ -74,6 +74,9 @@ h2 {
   background-color: #696969 !important;
 }
 /*Modal*/
+.js-example-basic-multiple, #publisher {
+    width: 100%;
+}
 #exampleModal, #form-insert input:focus, #form-insert textarea:focus, #exampleModal select:focus {
     color: #696969 !important;
     border-color: #696969;
