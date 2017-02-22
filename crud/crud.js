@@ -23,6 +23,9 @@ $(document).ready(function(){
   $("#sortByAuthor").click(function() {
     document.cookie = "value = author";
   })
+  $("#sortByTag").click(function() {
+    document.cookie = "value = tag";
+  })
   $("#sortByOwner").click(function() {
     document.cookie = "value = owner";
   })
@@ -146,7 +149,6 @@ $(document).ready(function(){
 //Clear Modal
   $("#exampleModal").on('hidden.bs.modal', function () {
     $(this).find("input,textarea,select").val('').end();
-
   });
 //Exit
 });

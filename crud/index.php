@@ -71,6 +71,8 @@
     Título</a></th>
     <th class="text-center"><a id = "sortByAuthor" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Autor</a></th>
+    <th class="text-center"><a id = "sortByTag" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
+    Tags</a></th>
     <th class="text-center"><a id = "sortByPublisher" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
     Editora</a></th>
     <th class="text-center"><a id = "sortByOwner" href='../crud/index.php?order=<?php echo isset($_GET['order'])?!$_GET['order']:1; ?>'>
@@ -89,21 +91,33 @@
     $value = $_COOKIE['value'];
     if ($value == ""){$value = 'title';}
     $isAsc = isset($_GET['order'])? (bool) $_GET['order']: 1;
-
-    $sql = ("SELECT livro.id, livro.title, livro.author, editora.name, livro.owner, livro.description
-              FROM livro INNER JOIN editora ON livro.idPublisher=editora.idPublisher ORDER BY $value ".($isAsc?"ASC":"DESC"));
+    
+    $sql = ("SELECT l.id, l.title, l.author, e.name, l.owner, l.description, t.nameTag
+              FROM livro AS l INNER JOIN editora AS e ON l.idPublisher=e.idPublisher
+              INNER JOIN livro_tags AS lt ON l.id=lt.idLivro
+              INNER JOIN tags AS t ON lt.idTag=t.idTag
+              ORDER BY $value ".($isAsc?"ASC":"DESC"));
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
 
+    // var_dump($result);
+    $aux = 'name';
+
     foreach ($result as $row) {
       if($user->is_loggedin()!=""){
+
+        // if ($row['title']==$aux) {
+        //   $row['nameTag'] = explode(",",$row['nameTag']);
+        // }
+        // $aux = $row['title'];
 
        echo "<tr>
        <td class='id'>{$row['id']}</td>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
+       <td>{$row['nameTag']}</td>
        <td>{$row['name']}</td>
        <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
@@ -120,6 +134,7 @@
        echo "<tr>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
+       <td>{$row['nameTag']}</td>
        <td>{$row['name']}</td>
        <td>{$row['owner']}</td><
        <td>{$row['description']}</td>";
