@@ -12,6 +12,7 @@
     $idPublisher = $_POST['publisher'];
     $owner = $_POST['owner'];
     $description = $_POST['description'];
+    $id = $_POST['tags'];
 
     $sql = $pdo->prepare("INSERT INTO livro (title, author, idPublisher, owner, description)
                       VALUES (:title, :author, :idPublisher, :owner, :description)");
@@ -27,8 +28,20 @@
     $query->execute();
     $publisher = $query->fetch();
 
-    $id = $pdo->lastInsertId();
-    $json = [ 'title'=>$title, 'author'=>$author, 'publisher'=>$publisher['name'], 'owner'=>$owner, 'description'=>$description ];
+    $idLivro = $pdo->lastInsertId();
+    
+// insert tag
+    $sql = $pdo->prepare("INSERT INTO livro_tags (idLivro, idTag) VALUES (:idLivro, :idTag)");
+    $sql->bindValue(':idLivro', $idLivro);
+    $sql->bindValue(':idTag', $idTag);
+
+    foreach ($id as $tag => $idTag) {
+      $sql->execute();
+    }
+
+// --
+    $json = [ 'id'=>$id, 'title'=>$title, 'author'=>$author, 'publisher'=>$publisher['name'], 'owner'=>$owner, 'description'=>$description,
+              'idLivro'=>$idLivro, 'idTag'=>$idTag ];
     $data = (Object) $json;
 
     header("Content-type: application/json");

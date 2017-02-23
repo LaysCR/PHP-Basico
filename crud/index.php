@@ -91,33 +91,41 @@
     $value = $_COOKIE['value'];
     if ($value == ""){$value = 'title';}
     $isAsc = isset($_GET['order'])? (bool) $_GET['order']: 1;
-    
-    $sql = ("SELECT l.id, l.title, l.author, e.name, l.owner, l.description, t.nameTag
+
+    $sql = ("SELECT l.id, l.title, l.author, e.name, l.owner, l.description
               FROM livro AS l INNER JOIN editora AS e ON l.idPublisher=e.idPublisher
-              INNER JOIN livro_tags AS lt ON l.id=lt.idLivro
-              INNER JOIN tags AS t ON lt.idTag=t.idTag
               ORDER BY $value ".($isAsc?"ASC":"DESC"));
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $result = $stmt->fetchAll();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // var_dump($result);
-    $aux = 'name';
 
     foreach ($result as $row) {
-      if($user->is_loggedin()!=""){
 
-        // if ($row['title']==$aux) {
-        //   $row['nameTag'] = explode(",",$row['nameTag']);
-        // }
-        // $aux = $row['title'];
+      $sql = ("SELECT nameTag FROM livro_tags AS lt
+              INNER JOIN livro AS l ON l.id=lt.idLivro AND lt.idLivro=".$row['id']."
+              INNER JOIN tags AS t ON lt.idTag=t.idTag");
+
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $array = [];
+      foreach ($tags as $tag) {
+        $array[] = $tag['nameTag'];
+      }
+
+      $resultTag = implode(", ", $array);
+
+      if($user->is_loggedin()!=""){
 
        echo "<tr>
        <td class='id'>{$row['id']}</td>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
-       <td>{$row['nameTag']}</td>
+       <td>$resultTag</td>
        <td>{$row['name']}</td>
        <td>{$row['owner']}</td>
        <td>{$row['description']}</td>
@@ -134,7 +142,7 @@
        echo "<tr>
        <td>{$row['title']}</td>
        <td>{$row['author']}</td>
-       <td>{$row['nameTag']}</td>
+       <td>$resultTag</td>
        <td>{$row['name']}</td>
        <td>{$row['owner']}</td><
        <td>{$row['description']}</td>";

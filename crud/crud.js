@@ -85,12 +85,14 @@ $(document).ready(function(){
     e.preventDefault();
     var title = $("#title").val();
     var author = $("#author").val();
+    var tags = $("#tags").val(); console.log(tags);
     var publisher = $("#publisher").val();
     var owner = $("#owner").val();
     var description = $("#description").val();
     var data = {
       'title': title,
       'author': author,
+      'tags': parseInt(tags),
       'publisher': parseInt(publisher),
       'owner': owner,
       'description': description
@@ -103,6 +105,7 @@ $(document).ready(function(){
           var row = "<tr>" +
                       "<td>"+ data.title +"</td>" +
                       "<td>"+ data.author +"</td>" +
+                      "<td>"+ data.tags +"</td>" +
                       "<td>"+ data.publisher +"</td>" +
                       "<td>"+ data.owner +"</td>" +
                       "<td>"+ data.description +"</td>" +
