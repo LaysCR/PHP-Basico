@@ -73,9 +73,10 @@ class USER
       //Delete row
 
       try {
-      $sql = $this->pdo->prepare("DELETE FROM livro WHERE id=:id");
+      $sql = $this->pdo->prepare("DELETE FROM livro WHERE id=$id");
+      $sql->execute();
 
-      $sql->bindParam(":id", $id);
+      $sql = $this->pdo->prepare("DELETE FROM livro_tags WHERE idLivro=$id");
       $sql->execute();
       }
       catch(PDOException $e) {

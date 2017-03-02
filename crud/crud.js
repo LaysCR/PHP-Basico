@@ -42,8 +42,8 @@ $(document).ready(function(){
   //Delete row
   function deleteRow(){
     $(".delete").on('click', function () {
-
       var id = $(this).parent().children().val();
+      // console.log($(this).parent().children());
       var row = $(this).closest('tr');
       // console.log(id);
 
@@ -85,14 +85,15 @@ $(document).ready(function(){
     e.preventDefault();
     var title = $("#title").val();
     var author = $("#author").val();
-    var tags = $("#tags").val(); console.log(tags);
+    var tag = $("#tags").val();
+    var tags = JSON.stringify(tag);
     var publisher = $("#publisher").val();
     var owner = $("#owner").val();
     var description = $("#description").val();
     var data = {
       'title': title,
       'author': author,
-      'tags': parseInt(tags),
+      'tags': tags,
       'publisher': parseInt(publisher),
       'owner': owner,
       'description': description
@@ -112,7 +113,7 @@ $(document).ready(function(){
                       "<td><a class='update btn' href='#' type='submit' title='Atualizar'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
                       "<td>" +
                       "<form method='post'>" +
-                      "<input class='teste' type='hidden' value="+ data.id +">" +
+                      "<input class='teste' type='hidden' value="+ data.idLivro +">" +
                       "<a class='delete btn' href='#' title='Deletar' type='submit'><span class='glyphicon glyphicon-trash'></span></a></td>" +
                       "</form>" +
                     "</tr>";
